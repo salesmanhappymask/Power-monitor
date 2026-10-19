@@ -12,18 +12,23 @@ The program finds every peripheral whose name starts with `advanced_solar_genera
 
 ## What it shows
 
-* A total for each group and a card for each device.
-* An energy bar with the fill percentage. The bar turns green above 60%, yellow above 25% and red below that.
-* A status for each device and each total: `CHARGING`, `DISCHARGING`, `IDLE`, `FULL`, `EMPTY`, `SAMPLING` (first second after start) or `NO DATA`.
-* The average energy change per tick over the last 10 seconds, plus stored and maximum energy.
+The monitor has three tabs along the top. Touch a tab to switch.
 
-On a 3x3 monitor the program uses text scale 0.5 (57x38 characters) with solar generators on the left and energy cells on the right. When a group has more devices than fit, its pages rotate every 6 seconds. Touch the monitor to go to the next page.
+* **OVERVIEW**: one card per group with a status label, a large energy bar, stored energy, net rate per tick, and the time until full or empty. Below them, a device status card counts how many devices are charging, discharging, idle, empty or not reporting, and names the lowest one.
+* **SOLAR** and **CELLS**: the group card, then a card for each device with its percentage, energy bar, status, rate and stored energy. If there are more devices than fit, use the PREV and NEXT buttons. Pages also turn on their own every 8 seconds.
+
+After 2 minutes without a touch the monitor goes back to the overview.
+
+Statuses: `CHARGING`, `DISCHARGING`, `IDLE`, `FULL`, `EMPTY`, `SAMPLING` (first second after start) and `NO DATA`. An empty solar generator buffer shows `IDLE`, because solar generators pass their power straight through.
+
+The program uses text scale 0.5 and needs a monitor at least 3x3 blocks large.
 
 ## Settings
 
 The `CONFIG` table at the top of the file holds the settings:
 
 * `monitorName`: set this to a name like `"monitor_0"` if more than one monitor is connected.
-* `refreshSeconds`, `rateWindowSeconds`, `pageSeconds`: timing.
+* `refreshSeconds`, `rateWindowSeconds`, `pageSeconds`, `returnToOverviewSeconds`: timing. Set a value to 0 to turn that feature off.
+* `ignoreDirectSides`: when true, devices touching the computer directly (named `right`, `left` and so on) are skipped, so a device that is also on the wired network is not counted twice.
 * `idleThreshold`: the smallest change per tick that counts as charging or discharging.
-* `groups[].unit`: the unit shown for each group (EU for solar, RF for cells).
+* `groups[].unit` and `groups[].colorName`: the unit and tab color for each group.
