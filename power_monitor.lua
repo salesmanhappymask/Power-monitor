@@ -1,3 +1,5 @@
+local VERSION = "2.1.0"
+
 local CONFIG = {
     title = "Power Monitor",
     monitorName = nil,
@@ -614,7 +616,7 @@ end
 local function drawHeader()
     ui.rect(1, 1, W, 1, C_HEADER)
     ui.rect(1, 2, W, 1, C_DIV)
-    ui.field(1, 1, W, CONFIG.title, C_TEXT, C_HEADER, "center")
+    ui.field(1, 1, W, CONFIG.title .. " v" .. VERSION, C_TEXT, C_HEADER, "center")
     ui.text(2, 1, clockText(), C_HDR_TEXT, C_HEADER)
     ui.text(W - 5, 1, "ZelOS", C_BRAND, C_HEADER)
 end
@@ -937,7 +939,7 @@ end
 
 local function terminalInfo()
     printStatus({
-        "ZelOS Power Monitor",
+        "ZelOS Power Monitor v" .. VERSION,
         "",
         "Monitor: " .. tostring(monName) .. " (" .. W .. "x" .. H .. ")",
         "Solar generators: " .. #(devices.solar or {}),
@@ -984,7 +986,7 @@ local function run()
             elseif not waitingShown then
                 waitingShown = true
                 printStatus({
-                    "ZelOS Power Monitor",
+                    "ZelOS Power Monitor v" .. VERSION,
                     "",
                     "No monitor found on the wired network.",
                     "Connect a monitor with a wired modem and",
@@ -1022,10 +1024,10 @@ while true do
                 mon.setBackgroundColor(colors.black)
                 mon.clear()
             end
-            printStatus({ "ZelOS Power Monitor stopped." })
+            printStatus({ "ZelOS Power Monitor v" .. VERSION .. " stopped." })
             break
         end
-        printStatus({ "[Power Monitor Error]", tostring(err), "", "Restarting in 3 seconds..." })
+        printStatus({ "[Power Monitor v" .. VERSION .. " Error]", tostring(err), "", "Restarting in 3 seconds..." })
         mon, monName = nil, nil
         sleep(3)
     end

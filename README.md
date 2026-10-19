@@ -32,3 +32,20 @@ The `CONFIG` table at the top of the file holds the settings:
 * `ignoreDirectSides`: when true, devices touching the computer directly (named `right`, `left` and so on) are skipped, so a device that is also on the wired network is not counted twice.
 * `idleThreshold`: the smallest change per tick that counts as charging or discharging.
 * `groups[].unit` and `groups[].colorName`: the unit and tab color for each group.
+
+## Versions
+
+The version number is set by `VERSION` on the first line of `power_monitor.lua`. It shows in the monitor header and on the computer's own screen, so you can check which copy is running.
+
+When you change the program, raise the number:
+
+* Last number (2.1.**1**): small fixes, such as alignment or wording.
+* Middle number (2.**2**.0): new features or settings.
+* First number (**3**.0.0): a major redesign.
+
+### Changelog
+
+* **2.1.0**: Added the version number to the monitor header and terminal.
+* **2.0.1**: Fixed column divider alignment on the overview and device pages.
+* **2.0.0**: Redesigned with OVERVIEW, SOLAR and CELLS tabs, summary cards, time to full or empty estimates and paged device lists. Fixed long decimals on older ComputerCraft versions and stopped counting side-attached devices twice.
+* **1.0.0**: First version with a two-column layout.
