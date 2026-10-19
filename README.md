@@ -28,7 +28,7 @@ The program uses text scale 0.5 and needs a monitor at least 3x3 blocks large.
 The `CONFIG` table at the top of the file holds the settings:
 
 * `monitorName`: set this to a name like `"monitor_0"` if more than one monitor is connected.
-* `refreshSeconds`, `rateWindowSeconds`, `pageSeconds`, `returnToOverviewSeconds`: timing. Set a value to 0 to turn that feature off.
+* `refreshSeconds`, `rateWindowSeconds`, `pageSeconds`, `returnToOverviewSeconds`: timing. Set `pageSeconds` or `returnToOverviewSeconds` to 0 to turn off automatic page turning or the return to the overview.
 * `ignoreDirectSides`: when true, devices touching the computer directly (named `right`, `left` and so on) are skipped, so a device that is also on the wired network is not counted twice.
 * `idleThreshold`: the smallest change per tick that counts as charging or discharging.
 * `groups[].unit` and `groups[].colorName`: the unit and tab color for each group.
