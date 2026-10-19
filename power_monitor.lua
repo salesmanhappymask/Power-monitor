@@ -711,7 +711,7 @@ local function drawOverview(state)
     local rows = hh - 3
     drawStatusColumn(ix, y + 2, lw, rows, CONFIG.groups[1], sums[1])
     drawStatusColumn(rx, y + 2, rw, rows, CONFIG.groups[2], sums[2])
-    ui.rect(rx - 2, y + 2, 1, rows, C_DIV)
+    ui.rect(rx - 2, y + 1, 1, rows + 1, C_DIV)
 end
 
 local function entryLines(d, g, cw)
@@ -798,11 +798,16 @@ local function drawGroupPage(g, state)
 
     local ix, iw = x + 3, ww - 5
     local cols = math.max(1, math.floor((iw + 2) / 24))
-    local gap = 2
+    local gap = 3
     local cw = math.floor((iw - gap * (cols - 1)) / cols)
 
+    local lastW = iw - (cols - 1) * (cw + gap)
+
     local entries = {}
-    for _, d in ipairs(list) do entries[#entries + 1] = entryLines(d, g, cw) end
+    for i, d in ipairs(list) do
+        local c = ((i - 1) % cols) + 1
+        entries[#entries + 1] = entryLines(d, g, c == cols and lastW or cw)
+    end
 
     local listH = cardH - 3
     local pages = paginate(entries, cols, listH)
@@ -828,12 +833,12 @@ local function drawGroupPage(g, state)
         local yy = top
         for _, row in ipairs(pages[page]) do
             for c, e in ipairs(row.items) do
-                drawEntry(ix + (c - 1) * (cw + gap), yy, cw, e, maxY)
+                drawEntry(ix + (c - 1) * (cw + gap), yy, c == cols and lastW or cw, e, maxY)
             end
             yy = yy + row.height + 1
         end
         for c = 1, cols - 1 do
-            ui.rect(ix + c * (cw + gap) - 1 - math.floor(gap / 2), top, 1, listH, C_DIV)
+            ui.rect(ix + c * (cw + gap) - 2, top - 1, 1, listH + 1, C_DIV)
         end
     end
 
